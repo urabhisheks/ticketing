@@ -1,0 +1,10 @@
+kubectl create secret generic jwt-secret --from-literal=JWT_KEY=asdf
+
+kubectl get secrets
+
+kubectl port-forward nats-depl-c8967fcf6-hckrm 4222:4222
+
+kubectl port-forward nats-depl-644c7ff866-p289g 8222:8222
+
+http://localhost:8222/streaming
+

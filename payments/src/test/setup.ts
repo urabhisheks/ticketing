@@ -16,26 +16,21 @@ let mongo: any;
 
 beforeAll(async () => {
 
-  console.log('BEFORE ALL')
   process.env.JWT_KEY = 'asdfasdf';
   process.env.NODE_TLS_REJECT_UNAUTHORIZED = '0';
 
   mongo = new MongoMemoryServer();
-  console.log('BEFORE ALL 1')
 
   const mongoUri = await mongo.getUri();
-  console.log('BEFORE ALL 2 ', mongoUri)
 
   await mongoose.connect(mongoUri, {
     useNewUrlParser: true,
     useUnifiedTopology: true
   });
-  console.log('Connected to mongo DB');
 
 });
 
 beforeEach(async () => {
-  console.log('BEFORE EACH')
   
   jest.clearAllMocks();
   const collections = await mongoose.connection.db.collections();
@@ -43,24 +38,14 @@ beforeEach(async () => {
   for(let collection of collections){
     await collection.deleteMany({});
   }
-console.log('Before Each 2')
 
 });
 
-// afterEach(() => { 
-//   jest.clearAllMocks(); 
-//   jest.resetAllMocks();
-// });
-
 afterAll(async () => {
-  console.log('AFTER ALL')
 
   await mongo.stop();
-  console.log('AFTER ALL 2')
 
   await mongoose.connection.close();
-
-  console.log('AFTER ALL 3')
 
 });
 

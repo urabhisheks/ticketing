@@ -45,10 +45,8 @@ it('returns a 401 when purchasing an order that does not belong to the user', as
 });
 
 it('returns a 400 when purchasing a cancelled order', async () => {
-  // console.log(' ( - -) returns a 400 when purchasing a cancelled order (- - ) 1')
 
   const userId = mongoose.Types.ObjectId().toHexString();
-  // console.log(' ( - -) returns a 400 when purchasing a cancelled order (- - ) 2')
 
   const order = Order.build({
     id: mongoose.Types.ObjectId().toHexString(),
@@ -57,15 +55,8 @@ it('returns a 400 when purchasing a cancelled order', async () => {
     price: 10,
     status: OrderStatus.Cancelled
   });
-  // console.log(' ( - -) returns a 400 when purchasing a cancelled order (- - ) 3')
 
-  try{
-    await order.save();
-  } catch (err) {
-    // console.log(' ( - -) ERROR (- - ) ==> ', err)
-
-  }
-  console.log('order saved ( - -)')
+  await order.save();
   await request(app)
     .post('/api/payments')
     .set('Cookie', global.signin(userId))
@@ -92,7 +83,7 @@ it('returns a 201 with valid inputs', async () => {
 
   await request(app)
     .post('/api/payments')
-    .set('Cookie', global.signin())
+    .set('Cookie', global.signin(userId))
     .send({
       token: 'tok_visa',
       orderId: order.id

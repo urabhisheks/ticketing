@@ -34,7 +34,7 @@ const setup = async () => {
   return {listener, data, msg, order};
 };
 
-it.skip('updates the status of the order' , async () => {
+it('updates the status of the order' , async () => {
 
   const {listener, data, msg, order} = await setup();
   

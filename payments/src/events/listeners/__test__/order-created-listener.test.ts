@@ -28,7 +28,7 @@ const setup = async () => {
   return {listener, data, msg}; 
 };
 
-it.skip('replicates the order info', async () => {
+it('replicates the order info', async () => {
   const {listener, data, msg} = await setup();
   console.log('Setup called');
   await listener.onMessage(data, msg);
@@ -40,7 +40,7 @@ it.skip('replicates the order info', async () => {
   expect(order!.price).toEqual(data.ticket.price);
 });
 
-it.skip('acks the message', async () => {
+it('acks the message', async () => {
   const {listener, data, msg} = await setup();
 
   await listener.onMessage(data, msg);
